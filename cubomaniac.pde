@@ -1,9 +1,9 @@
-PImage source, destination;
+PImage src, dest;
 
 void setup() {
-  source = loadImage("logo.jpg");
-  destination = createImage(source.width, source.height, RGB);
-  size(source.width, source.height);
+  src = loadImage("logo.jpg");
+  dest = createImage(src.width, src.height, RGB);
+  size(src.width, src.height);
 }
 
 void draw() {
@@ -11,51 +11,51 @@ void draw() {
 }
 
 void verticalStrips(int n) {  
-  source.loadPixels();
-  destination.loadPixels();
+  src.loadPixels();
+  dest.loadPixels();
   
   ArrayList<Integer> stripIndices = new ArrayList<Integer>();
   for (int index = 0; index < n; index++) {
     stripIndices.add(index);
   }
   int destX = 0;
-  int margin = source.width/n;
+  int margin = src.width/n;
   
   while (stripIndices.size() > 0) {
     int index = stripIndices.remove((int)random(stripIndices.size()));
     for (int x = index*margin; x < index*margin + margin; x++, destX++) {
-      for (int y = 0; y < source.height; y++) {
-        destination.pixels[destX + y*source.width] = source.pixels[x + y*source.width];
+      for (int y = 0; y < src.height; y++) {
+        dest.pixels[destX + y*src.width] = src.pixels[x + y*src.width];
       }
     }
   }
   
-  destination.updatePixels();
-  image(destination, 0, 0);
+  dest.updatePixels();
+  image(dest, 0, 0);
 }
 
 void horizontalStrips(int n) {
-  source.loadPixels();
-  destination.loadPixels();
+  src.loadPixels();
+  dest.loadPixels();
   
   ArrayList<Integer> stripIndices = new ArrayList<Integer>();
   for (int index = 0; index < n; index++) {
     stripIndices.add(index);
   }
   int destY = 0;
-  int margin = source.height/n;
+  int margin = src.height/n;
   
   while (stripIndices.size() > 0) {
     int index = stripIndices.remove((int)random(stripIndices.size()));
     for (int y = index*margin; y < index*margin + margin; y++, destY++) {
-      for (int x = 0; x < source.width; x++) {
-        destination.pixels[x + destY*source.width] = source.pixels[x + y*source.width];
+      for (int x = 0; x < src.width; x++) {
+        dest.pixels[x + destY*src.width] = src.pixels[x + y*src.width];
       }
     }
   }
   
-  destination.updatePixels();
-  image(destination, 0, 0);
+  dest.updatePixels();
+  image(dest, 0, 0);
 }
 
 void verticalHorizontalStrips(int v, int h) {
@@ -65,6 +65,6 @@ void verticalHorizontalStrips(int v, int h) {
 }
 
 void sourceEqualsDestination() {
-  source = destination;
-  destination = createImage(source.width, source.height, RGB);
+  src = dest;
+  dest = createImage(src.width, src.height, RGB);
 }
